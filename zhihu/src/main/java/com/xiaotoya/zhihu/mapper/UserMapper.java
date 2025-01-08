@@ -1,0 +1,9 @@
+package com.xiaotoya.zhihu.mapper;
+
+import com.xiaotoya.zhihu.entities.User;
+import org.apache.ibatis.annotations.Mapper;
+
+@Mapper
+public interface UserMapper {
+    public User findByUsername(String username);
+}

@@ -1,4 +1,4 @@
-package com.xiaotoya.zhihu.service;
+package com.xiaotoya.zhihu.service.impl;
 
 import com.xiaotoya.zhihu.entities.User;
 import com.xiaotoya.zhihu.mapper.UserMapper;

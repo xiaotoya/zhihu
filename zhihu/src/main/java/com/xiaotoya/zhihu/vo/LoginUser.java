@@ -16,6 +16,10 @@ public class LoginUser implements UserDetails {
     public LoginUser(User user) {
         this.user = user;
     }
+
+    public Integer getUserId() {
+        return this.user.getId();
+    }
     // 权限列表
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

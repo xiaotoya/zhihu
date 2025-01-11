@@ -3,7 +3,51 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.xiaotoya.zhihu.mapper.UserMapper">
-    <select id="findByUsername" parameterType="String" resultType="com.xiaotoya.zhihu.entities.User">
-        select * from zh_user where username=#{username}
+    <resultMap id="UserWithAccess" type="User">
+        <!-- 主键字段映射 -->
+        <id property="id" column="id" />
+        <!-- 普通字段映射 -->
+        <result property="username" column="username" />
+        <result property="nickname" column="nickname" />
+        <result property="realname" column="realname" />
+        <result property="password" column="password" />
+        <result property="salt" column="salt" />
+        <result property="email" column="email" />
+        <result property="mobile" column="mobile" />
+        <result property="avatar" column="avatar" />
+        <result property="level" column="level" />
+        <result property="gender" column="gender" />
+        <result property="birthday" column="birthday" jdbcType="TIMESTAMP" />
+        <result property="money" column="money" jdbcType="DECIMAL" />
+        <result property="exp" column="exp" />
+        <result property="createtime" column="createtime" jdbcType="BIGINT" />
+        <result property="updatetime" column="updatetime" jdbcType="BIGINT" />
+        <result property="status" column="status" />
+        <result property="totalConsume" column="totalConsume" jdbcType="DECIMAL" />
+        <result property="unionid" column="unionid" />
+        <result property="mobileOpenid" column="mobile_openid" />
+        <result property="openid" column="openid" />
+        <result property="address" column="address" />
+        <result property="age" column="age" />
+        <!--关联role-->
+        <association property="role" javaType="Role">
+            <result property="name" column="roleName" />
+            <collection property="accesses" ofType="Access" javaType="list">
+                <result property="name" column="accessName" />
+                <result property="path" column="accessPath" />
+            </collection>
+        </association>
+    </resultMap>
+    <select id="findByUsername" parameterType="String" resultMap="UserWithAccess">
+        select
+            user.*,
+            role.name as roleName,
+            access.name as accessName,
+            access.path as accessPath
+        from zh_user as user
+        LEFT JOIN zh_user_role as role on user.role_id = role.id
+        LEFT JOIN zh_role_access as ra on ra.role_id = role.id
+        LEFT JOIN zh_access as access on ra.access_id = access.id
+        where username=#{username}
     </select>
 </mapper>

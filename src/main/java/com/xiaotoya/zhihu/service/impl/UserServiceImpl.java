@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.xiaotoya.zhihu.common.JwtUtil;
 import com.xiaotoya.zhihu.entities.User;
 import com.xiaotoya.zhihu.service.UserService;
-import com.xiaotoya.zhihu.vo.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,7 +30,7 @@ public class UserServiceImpl implements UserService {
         if (Objects.isNull(authentication)) {
             throw new RuntimeException("登录失败");
         }
-        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        User loginUser = (User) authentication.getPrincipal();
         String loginUserString = JwtUtil.toJSONString(loginUser);
         String jwtToken = JwtUtil.createJWT(loginUserString, null);
         // 登录用户录入redis

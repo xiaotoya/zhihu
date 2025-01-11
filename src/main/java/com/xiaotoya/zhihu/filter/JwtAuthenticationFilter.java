@@ -1,11 +1,8 @@
 package com.xiaotoya.zhihu.filter;
-
-import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xiaotoya.zhihu.common.Constant;
 import com.xiaotoya.zhihu.common.JwtUtil;
 import com.xiaotoya.zhihu.common.Response;
-import com.xiaotoya.zhihu.vo.LoginUser;
+import com.xiaotoya.zhihu.entities.User;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -32,7 +29,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String jwt = getJwtFromRequest(request);
             if (jwt != null) {
                 Claims claims = JwtUtil.parseToken(jwt);
-                LoginUser loginUser = JwtUtil.toObj(claims.getSubject(), LoginUser.class);
+                User loginUser = JwtUtil.toObj(claims.getSubject(), User.class);
                 Authentication authentication = new UsernamePasswordAuthenticationToken(loginUser, null, null);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             } else {

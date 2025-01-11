@@ -18,7 +18,7 @@ class ZhihuApplicationTests {
 
 	@Test
 	void testFindByUsername() {
-		User user = userMapper.findByUsername("eric");
+		User user = userMapper.findByUsername("Eric");
 		System.out.println(user);
 	}
 

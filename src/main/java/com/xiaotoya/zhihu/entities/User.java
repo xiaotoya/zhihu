@@ -1,20 +1,27 @@
 package com.xiaotoya.zhihu.entities;
 
-import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.io.Serial;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Table(name = "zh_user")
-public class User implements Serializable {
+public class User implements UserDetails {
+    @Serial
+    private static final long serialVersionUID = 1L;
     // ID
     @Id
     @GeneratedValue(generator = "JDBC")
     private Integer id;
     // 组别ID
-    private Integer groupId;
+    private Role role;
 
     // 用户名
     private String username;
@@ -53,20 +60,7 @@ public class User implements Serializable {
     private BigDecimal money;
 
     // 积分
-    private Integer score;
-
-    // 连续登录天数
-    private Integer successions;
-
-    // 最大连续登录天数
-    private Integer maxsuccessions;
-
-    // 上次登录时间
-    private Long prevtime;
-
-    // 登录IP
-    private String loginip;
-
+    private Integer exp;
     // 创建时间
     private Long createtime;
 
@@ -94,7 +88,16 @@ public class User implements Serializable {
     // 年龄
     private Integer age;
 
+    // ignore 不需要的字段序列化
+    @JsonIgnore
+    public boolean enabled;
+    @JsonIgnore
+    public boolean credentialsNonExpired;
+    @JsonIgnore
+    public boolean accountNonLocked;
+
     public User() {
+        super();
     }
 
     public Integer getId() {
@@ -105,16 +108,36 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public Integer getGroupId() {
-        return groupId;
+    public Role getRole() {
+        return role;
     }
 
-    public void setGroupId(Integer groupId) {
-        this.groupId = groupId;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public String getUsername() {
         return username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return UserDetails.super.isAccountNonExpired();
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return UserDetails.super.isAccountNonLocked();
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return UserDetails.super.isCredentialsNonExpired();
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return UserDetails.super.isEnabled();
     }
 
     public void setUsername(String username) {
@@ -137,6 +160,12 @@ public class User implements Serializable {
         this.realname = realname;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
     public String getPassword() {
         return password;
     }
@@ -209,46 +238,6 @@ public class User implements Serializable {
         this.money = money;
     }
 
-    public Integer getScore() {
-        return score;
-    }
-
-    public void setScore(Integer score) {
-        this.score = score;
-    }
-
-    public Integer getSuccessions() {
-        return successions;
-    }
-
-    public void setSuccessions(Integer successions) {
-        this.successions = successions;
-    }
-
-    public Integer getMaxsuccessions() {
-        return maxsuccessions;
-    }
-
-    public void setMaxsuccessions(Integer maxsuccessions) {
-        this.maxsuccessions = maxsuccessions;
-    }
-
-    public Long getPrevtime() {
-        return prevtime;
-    }
-
-    public void setPrevtime(Long prevtime) {
-        this.prevtime = prevtime;
-    }
-
-    public String getLoginip() {
-        return loginip;
-    }
-
-    public void setLoginip(String loginip) {
-        this.loginip = loginip;
-    }
-
     public Long getCreatetime() {
         return createtime;
     }
@@ -319,5 +308,13 @@ public class User implements Serializable {
 
     public void setAge(Integer age) {
         this.age = age;
+    }
+
+    public Integer getExp() {
+        return exp;
+    }
+
+    public void setExp(Integer exp) {
+        this.exp = exp;
     }
 }

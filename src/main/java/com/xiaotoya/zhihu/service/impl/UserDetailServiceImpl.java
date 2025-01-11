@@ -2,7 +2,6 @@ package com.xiaotoya.zhihu.service.impl;
 
 import com.xiaotoya.zhihu.entities.User;
 import com.xiaotoya.zhihu.mapper.UserMapper;
-import com.xiaotoya.zhihu.vo.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,6 +18,6 @@ public class UserDetailServiceImpl implements UserDetailsService {
         if (user == null) {
             throw new RuntimeException("用户名不存在!");
         }
-        return new LoginUser(user);
+        return user;
     }
 }

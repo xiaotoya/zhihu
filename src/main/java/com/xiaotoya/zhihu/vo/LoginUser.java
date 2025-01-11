@@ -1,5 +1,6 @@
 package com.xiaotoya.zhihu.vo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.xiaotoya.zhihu.entities.User;
 import org.springframework.security.core.GrantedAuthority;
@@ -48,6 +49,7 @@ public class LoginUser implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonExpired() {
         return UserDetails.super.isAccountNonExpired();
     }

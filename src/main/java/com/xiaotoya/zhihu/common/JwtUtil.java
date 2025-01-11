@@ -1,6 +1,7 @@
 package com.xiaotoya.zhihu.common;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -39,6 +40,7 @@ public class JwtUtil {
     }
     public static <T> T toObj(String jsonString, Class<T> tClass) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         return objectMapper.readValue(jsonString, tClass);
     }
 }

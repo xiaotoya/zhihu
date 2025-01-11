@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xiaotoya.zhihu.common.Constant;
 import com.xiaotoya.zhihu.common.JwtUtil;
+import com.xiaotoya.zhihu.common.Response;
 import com.xiaotoya.zhihu.vo.LoginUser;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
@@ -35,7 +36,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 Authentication authentication = new UsernamePasswordAuthenticationToken(loginUser, null, null);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             } else {
-                response.getWriter().write("Access Denied");
+                response.getWriter().write(JwtUtil.toJSONString(Response.error().data("Fail reason", "Login First")));
                 return;
             }
         }

@@ -2,14 +2,10 @@ package com.xiaotoya.zhihu.vo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.xiaotoya.zhihu.entities.User;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 
-@Data
-@NoArgsConstructor
 public class LoginUser implements UserDetails {
 
     @JsonProperty
@@ -18,6 +14,19 @@ public class LoginUser implements UserDetails {
         super();
         this.user = user;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public LoginUser() {
+        super();
+    }
+
 
     public Integer getUserId() {
         return this.user.getId();

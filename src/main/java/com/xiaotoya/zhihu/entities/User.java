@@ -1,10 +1,5 @@
 package com.xiaotoya.zhihu.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -13,21 +8,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Table(name = "zh_user")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class User implements Serializable {
     // ID
     @Id
     @GeneratedValue(generator = "JDBC")
-    @JsonProperty
     private Integer id;
-
     // 组别ID
     private Integer groupId;
 
     // 用户名
-    @JsonProperty
     private String username;
 
     // 昵称
@@ -37,7 +26,6 @@ public class User implements Serializable {
     private String realname;
 
     // 密码
-    @JsonProperty
     private String password;
 
     // 密码盐
@@ -105,4 +93,231 @@ public class User implements Serializable {
 
     // 年龄
     private Integer age;
+
+    public User() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Integer groupId) {
+        this.groupId = groupId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getRealname() {
+        return realname;
+    }
+
+    public void setRealname(String realname) {
+        this.realname = realname;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
+    public Integer getGender() {
+        return gender;
+    }
+
+    public void setGender(Integer gender) {
+        this.gender = gender;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public BigDecimal getMoney() {
+        return money;
+    }
+
+    public void setMoney(BigDecimal money) {
+        this.money = money;
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
+    public Integer getSuccessions() {
+        return successions;
+    }
+
+    public void setSuccessions(Integer successions) {
+        this.successions = successions;
+    }
+
+    public Integer getMaxsuccessions() {
+        return maxsuccessions;
+    }
+
+    public void setMaxsuccessions(Integer maxsuccessions) {
+        this.maxsuccessions = maxsuccessions;
+    }
+
+    public Long getPrevtime() {
+        return prevtime;
+    }
+
+    public void setPrevtime(Long prevtime) {
+        this.prevtime = prevtime;
+    }
+
+    public String getLoginip() {
+        return loginip;
+    }
+
+    public void setLoginip(String loginip) {
+        this.loginip = loginip;
+    }
+
+    public Long getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(Long createtime) {
+        this.createtime = createtime;
+    }
+
+    public Long getUpdatetime() {
+        return updatetime;
+    }
+
+    public void setUpdatetime(Long updatetime) {
+        this.updatetime = updatetime;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public BigDecimal getTotalConsume() {
+        return totalConsume;
+    }
+
+    public void setTotalConsume(BigDecimal totalConsume) {
+        this.totalConsume = totalConsume;
+    }
+
+    public String getUnionid() {
+        return unionid;
+    }
+
+    public void setUnionid(String unionid) {
+        this.unionid = unionid;
+    }
+
+    public String getMobileOpenid() {
+        return mobileOpenid;
+    }
+
+    public void setMobileOpenid(String mobileOpenid) {
+        this.mobileOpenid = mobileOpenid;
+    }
+
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
 }

@@ -30,7 +30,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             if (jwt != null) {
                 Claims claims = JwtUtil.parseToken(jwt);
                 User loginUser = JwtUtil.toObj(claims.getSubject(), User.class);
-                Authentication authentication = new UsernamePasswordAuthenticationToken(loginUser, null, null);
+                Authentication authentication = new UsernamePasswordAuthenticationToken(loginUser, null, loginUser.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             } else {
                 response.getWriter().write(JwtUtil.toJSONString(Response.error().data("Fail reason", "Login First")));

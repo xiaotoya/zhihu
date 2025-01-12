@@ -2,12 +2,15 @@ package com.xiaotoya.zhihu.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serial;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -160,9 +163,18 @@ public class User implements UserDetails {
         this.realname = realname;
     }
 
+    private List<Access> accesses;
+
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        if (role != null) {
+            for(Access access : role.getAccesses()) {
+                authorities.add(new SimpleGrantedAuthority(access.getPath()));
+            }
+        }
+        return authorities;
     }
 
     @Override

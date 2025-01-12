@@ -1,6 +1,9 @@
 package com.xiaotoya.zhihu.config;
 
 import com.xiaotoya.zhihu.common.Constant;
+import com.xiaotoya.zhihu.exception.CustomAccessDeniedHandler;
+import com.xiaotoya.zhihu.exception.CustomAuthenticationEntryPoint;
+import com.xiaotoya.zhihu.exception.CustomAuthenticationFailureHandler;
 import com.xiaotoya.zhihu.filter.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -23,6 +26,15 @@ public class SecurityConfig {
     @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;
 
+    @Autowired
+    private CustomAccessDeniedHandler accessDeniedHandler;
+
+    @Autowired
+    private CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
+
+    @Autowired
+    private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -44,7 +56,13 @@ public class SecurityConfig {
                         .permitAll()
                         .anyRequest()
                         .authenticated()
+
         );
+        http.formLogin(configure -> configure.failureHandler(customAuthenticationFailureHandler));
+        http.exceptionHandling(configure -> {
+            configure.accessDeniedHandler(accessDeniedHandler);
+            configure.authenticationEntryPoint(customAuthenticationEntryPoint);
+        });
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }

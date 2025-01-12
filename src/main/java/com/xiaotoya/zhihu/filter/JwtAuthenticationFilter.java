@@ -2,6 +2,7 @@ package com.xiaotoya.zhihu.filter;
 import com.xiaotoya.zhihu.common.Constant;
 import com.xiaotoya.zhihu.common.JwtUtil;
 import com.xiaotoya.zhihu.common.Response;
+import com.xiaotoya.zhihu.common.Util;
 import com.xiaotoya.zhihu.entities.User;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
@@ -33,7 +34,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 Authentication authentication = new UsernamePasswordAuthenticationToken(loginUser, null, loginUser.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             } else {
-                response.getWriter().write(JwtUtil.toJSONString(Response.error().data("Fail reason", "Login First")));
+                Util.responseToJson(response,Response.error().data("Fail reason", "Login First"), HttpServletResponse.SC_UNAUTHORIZED);
                 return;
             }
         }
